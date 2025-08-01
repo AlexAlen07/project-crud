@@ -96,6 +96,20 @@
                 <a href="libros/agregar.php" class="btn btn-warning">Agregar</a>
             </div>
         </section>
+        
+                                        foreach ($resultados as $fila) {
+                                    echo "<p>" . htmlspecialchars($fila['titulo']) . "</p>";
+                                }
+                            } else {
+                                echo "<p>No se encontraron libros.</p>";
+                            }
+                        }
+                        ?>
+                    </div>
+                    <button type="submit" class="btn btn-primary" name="btnenviar" value="ok">Enviar</button>
+                </form>
+            </div>
+        </section>
 
         <!--Autores-->
         <section class="page-section bg-info" id="autores">
