@@ -179,6 +179,33 @@
             </div>
         </section>
 
+        <!-- Libros-->
+        <section class="page-section bg-light" id="titulo">
+            <div class="container">
+                <form class="text-center" method="POST">
+                    <h2 class="section-heading text-uppercase">Libros</h2>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="buscar" placeholder="Buscar Libro" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <?php
+                        include "db/conexion.php"; 
+                        $buscar = $_GET['buscar'] ?? '';
+                        $sql = "SELECT * FROM titulos WHERE titulo LIKE '%$buscar%'";
+                        $resultado = mysqli_query($conexion, $sql);
+                        while($fila = mysqli_fetch_assoc($resultado)) {
+                            echo "<p>" . $fila['titulo'] . "</p>";
+                        }
+                        ?>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" name="btnenviar" value="ok">Enviar</button>
+                </form>
+            </div>
+        </section>
+
         <!-- Footer-->
         <footer class="py-5 bg-black">
             <div class="container px-5"><p class="m-0 text-center text-white small">Copyright &copy; Libreria Online - ITLA 2025 by Albert Peguero 2023-1402</p></div>
