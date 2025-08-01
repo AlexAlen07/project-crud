@@ -179,11 +179,11 @@
             </div>
         </section>
 
-        <!-- Libros-->
-        <section class="page-section bg-light" id="titulo">
+        <!-- Titulos-->
+        <section class="page-section" id="titulos">
             <div class="container">
                 <form class="text-center" method="POST">
-                    <h2 class="section-heading text-uppercase">Libros</h2>
+                    <h2 class="section-heading text-uppercase">Titulos</h2>
 
                     <div class="mb-3">
                         <input type="text" class="form-control" name="buscar" placeholder="Buscar Libro" required>
@@ -191,12 +191,24 @@
 
                     <div class="mb-3">
                         <?php
-                        include "db/conexion.php"; 
-                        $buscar = $_GET['buscar'] ?? '';
-                        $sql = "SELECT * FROM titulos WHERE titulo LIKE '%$buscar%'";
-                        $resultado = mysqli_query($conexion, $sql);
-                        while($fila = mysqli_fetch_assoc($resultado)) {
-                            echo "<p>" . $fila['titulo'] . "</p>";
+                        include "db/conexion.php";
+
+                        if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['buscar'])) {
+                            $buscar = $_POST['buscar'];
+                            
+                            $sql = "SELECT * FROM titulos WHERE titulo LIKE :buscar";
+                            $stmt = $conexion->prepare($sql);
+                            $stmt->bindValue(':buscar', "%$buscar%", PDO::PARAM_STR);
+                            $stmt->execute();
+                            $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                            if ($resultados) {
+                                foreach ($resultados as $fila) {
+                                    echo "<p>" . htmlspecialchars($fila['titulo']) . "</p>";
+                                }
+                            } else {
+                                echo "<p>No se encontraron libros.</p>";
+                            }
                         }
                         ?>
                     </div>
