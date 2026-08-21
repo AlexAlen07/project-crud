@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -6,25 +6,13 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Libreria Online</title>
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Font Awesome icons (free version)-->
+        <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-
-        <!-- Impide que al refrescar la pagina te pregunte si quieres volver a enviar el formulario -->
-        <script>
-        if (window.history.replaceState){
-            window.history.replaceState(null, null, window.location.href);  
-        }
-        </script>
+        <link href="../css/styles.css" rel="stylesheet" />
     </head>
-
     <body id="page-top">
-        <!-- Barra de navegacion-->
         <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
             <div class="container px-5">
                 <a class="navbar-brand" href="#page-top">Libreria Online</a>
@@ -33,13 +21,11 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" href="#libros">Libros</a></li>
                         <li class="nav-item"><a class="nav-link" href="#autores">Autores</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contacto">Contato</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
-
-        <!-- Encabezado-->
         <header class="masthead text-center text-white">
             <div class="masthead-content">
                 <div class="container px-5">
@@ -52,13 +38,11 @@
             <div class="bg-circle-3 bg-circle"></div>
             <div class="bg-circle-4 bg-circle"></div>
         </header>
-
-        <!--Libros-->
         <section class="page-section" id="libros">
             <div class="table-container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Libros</h2>
-                    <table>
+                    <table class="mx-auto" style="margin: 0 auto;">
                         <thead class="bg-info">
                             <tr>
                                 <th scope="col">Título</th>
@@ -68,55 +52,37 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            include "db/conexion.php"; // Asegúrate de que este archivo establece la conexión usando PDO
-                            include "libros/add_delete.php";
-
-                            // Preparar la consulta para obtener los libros
-                            $sql = "SELECT * FROM titulos";
-                            $stmt = $conexion->prepare($sql);
-                            $stmt->execute();
-                            $result = $stmt->fetchAll(PDO::FETCH_OBJ); // Obtener todos los resultados como objetos
-
-                            foreach ($result as $datos) { ?>
-                                <tr>
-                                    <td><?= htmlspecialchars($datos->titulo) ?></td>
-                                    <td><?= htmlspecialchars($datos->tipo) ?></td>
-                                    <td><?= htmlspecialchars($datos->precio) ?></td>
-                                    <td>
-                                        <a href="index.php?titulo=<?= urlencode($datos->titulo) ?>"><i class="fa-solid fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                            <?php } ?>
+                            <tr>
+                                <td>El Quijote</td>
+                                <td>Novela</td>
+                                <td>20.00</td>
+                                <td><a href="#" onclick="alert('Acción deshabilitada en versión estática')"><i class="fa-solid fa-trash"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>Cien años de soledad</td>
+                                <td>Novela</td>
+                                <td>25.00</td>
+                                <td><a href="#" onclick="alert('Acción deshabilitada en versión estática')"><i class="fa-solid fa-trash"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>1984</td>
+                                <td>Ciencia Ficción</td>
+                                <td>15.50</td>
+                                <td><a href="#" onclick="alert('Acción deshabilitada en versión estática')"><i class="fa-solid fa-trash"></i></a></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="text-center">
-                <a href="libros/agregar.php" class="btn btn-warning">Agregar</a>
+            <div class="text-center mt-3">
+                <a href="agregar.html" class="btn btn-warning">Agregar</a>
             </div>
         </section>
-        
-                                        foreach ($resultados as $fila) {
-                                    echo "<p>" . htmlspecialchars($fila['titulo']) . "</p>";
-                                }
-                            } else {
-                                echo "<p>No se encontraron libros.</p>";
-                            }
-                        }
-                        ?>
-                    </div>
-                    <button type="submit" class="btn btn-primary" name="btnenviar" value="ok">Enviar</button>
-                </form>
-            </div>
-        </section>
-
-        <!--Autores-->
         <section class="page-section bg-info" id="autores">
             <div class="table-container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Autores</h2>
-                    <table>
+                    <h2 class="section-heading text-uppercase text-white">Autores</h2>
+                    <table class="mx-auto" style="margin: 0 auto; background: white;">
                         <thead class="bg-white">
                             <tr>
                                 <th scope="col">Nombre</th>
@@ -126,81 +92,59 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            include "db/conexion.php"; // Asegúrate de que este archivo establece la conexión usando PDO
-                            include "autores/add_delete.php";
-
-                            // Preparar la consulta para obtener los autores
-                            $sql = "SELECT * FROM autores";
-                            $stmt = $conexion->prepare($sql);
-                            $stmt->execute();
-                            $result = $stmt->fetchAll(PDO::FETCH_OBJ); // Obtener todos los resultados como objetos
-
-                            foreach ($result as $datos1) { ?>
-                                <tr>
-                                    <td><?= htmlspecialchars($datos1->nombre) ?></td>
-                                    <td><?= htmlspecialchars($datos1->apellido) ?></td>
-                                    <td><?= htmlspecialchars($datos1->pais) ?></td>
-                                    <td>
-                                        <a href="index.php?nombre=<?= urlencode($datos1->nombre) ?>"><i class="fa-solid fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                            <?php } ?>
+                            <tr>
+                                <td>Gabriel</td>
+                                <td>García Márquez</td>
+                                <td>Colombia</td>
+                                <td><a href="#" onclick="alert('Acción deshabilitada en versión estática')"><i class="fa-solid fa-trash"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>Miguel</td>
+                                <td>de Cervantes</td>
+                                <td>España</td>
+                                <td><a href="#" onclick="alert('Acción deshabilitada en versión estática')"><i class="fa-solid fa-trash"></i></a></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="text-center">
-                <a href="autores/agregar.php" class="btn btn-warning">Agregar</a>
+            <div class="text-center mt-3">
+                <a href="../autores/agregar.html" class="btn btn-warning">Agregar</a>
             </div>
         </section>
-
-        <!-- Contacto-->
         <section class="page-section bg-light" id="contacto">
             <div class="container">
-                <form class="text-center" method="POST">
+                <form class="text-center mx-auto" style="max-width: 500px;" id="contactForm">
                     <h2 class="section-heading text-uppercase">Contacto</h2>
-
                     <div class="mb-3">
                         <input type="text" class="form-control" name="nombre" placeholder="Nombre completo" required>
                     </div>
-
                     <div class="mb-3">
                         <input type="email" class="form-control" name="correo" placeholder="Correo electrónico" required>
                     </div>
-
                     <div class="mb-3">
                         <input type="text" class="form-control" name="asunto" placeholder="Asunto" required>
                     </div>
-
                     <div class="mb-3">
                         <input type="date" class="form-control" name="fecha" placeholder="Fecha" required>
                     </div>
-
                     <div class="mb-3">
                         <input type="text" class="form-control" name="comentario" placeholder="Comentario" required>
                     </div>
-
-                    <div class="mb-3">
-                        <?php
-                        include "db/conexion.php"; // Asegúrate de que este archivo establece la conexión usando PDO
-                        include "formulario/contacto.php";
-                        ?>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary" name="btnenviar" value="ok">Enviar</button>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
             </div>
         </section>
-
-        <!-- Footer-->
         <footer class="py-5 bg-black">
             <div class="container px-5"><p class="m-0 text-center text-white small">Copyright &copy; Libreria Online - ITLA 2025 by Albert Peguero 2023-1402</p></div>
         </footer>
-        <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-
+        <script src="../js/scripts.js"></script>
+        <script>
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Mensaje enviado. (Simulado en versión estática)');
+            });
+        </script>
     </body>
 </html>
