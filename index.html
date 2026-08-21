@@ -1,27 +1,4 @@
-<?php 
-include('db/conexion.php');
-session_start();
-
-$error = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $usuario = mysqli_real_escape_string($conexion, $_POST['usuario']);
-    $clave = mysqli_real_escape_string($conexion, $_POST['clave']);
-
-    $sql = "SELECT * FROM usuarios WHERE usuario='$usuario' AND clave='$clave'";
-    $resultado = mysqli_query($conexion, $sql);
-
-    if (mysqli_num_rows($resultado) == 1) {
-        $_SESSION['usuario'] = $usuario;
-        header("Location: libros/index.php");
-        exit();
-    } else {
-        $error = "Usuario o clave incorrectos.";
-    }
-}
-?>
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -35,7 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       justify-content: center;
       align-items: center;
     }
-
     .login-container {
       background: #fff;
       padding: 30px 40px;
@@ -44,13 +20,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       width: 100%;
       max-width: 400px;
     }
-
     h2 {
       text-align: center;
       margin-bottom: 20px;
       color: #333;
     }
-
     input[type="text"],
     input[type="password"] {
       width: 100%;
@@ -60,7 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       border-radius: 8px;
       font-size: 16px;
     }
-
     button {
       width: 100%;
       padding: 12px;
@@ -72,33 +45,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       cursor: pointer;
       transition: background 0.3s ease;
     }
-
     button:hover {
       background-color: #0056b3;
-    }
-
-    .error {
-      color: red;
-      margin-bottom: 15px;
-      text-align: center;
     }
   </style>
 </head>
 <body>
-
   <div class="login-container">
     <h2>Iniciar Sesión</h2>
-    
-    <?php if (!empty($error)) : ?>
-      <div class="error"><?php echo $error; ?></div>
-    <?php endif; ?>
-
-    <form method="post">
+    <form id="loginForm">
       <input type="text" name="usuario" placeholder="Usuario" required>
       <input type="password" name="clave" placeholder="Clave" required>
       <button type="submit">Ingresar</button>
     </form>
   </div>
-
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        window.location.href = 'libros/index.html';
+    });
+  </script>
 </body>
 </html>
